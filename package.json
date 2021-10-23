@@ -6,8 +6,9 @@
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test:functional":"jest --projects ./test --runInBand",
     "start": "yarn build && node dist/src/index.js",
-    "start:dev":"ts-node-dev 'src/index.ts'",
+    "start:dev": "ts-node-dev 'src/index.ts'",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix"
   },
@@ -30,11 +31,16 @@
     "module-alias": "^2.2.2"
   },
   "devDependencies": {
+    "@types/jest": "^27.0.2",
     "@types/module-alias": "^2.0.1",
     "@types/node": "^16.11.2",
+    "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
     "eslint": "^8.0.1",
+    "jest": "^27.3.1",
+    "supertest": "^6.1.6",
+    "ts-jest": "^27.0.7",
     "ts-node-dev": "^1.1.8",
     "typescript": "^4.4.4"
   }
