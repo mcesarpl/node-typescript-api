@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:functional": "jest --projects ./test --runInBand",
     "start": "yarn build && node dist/src/index.js",
-    "start:dev": "ts-node-dev 'src/index.ts'",
+    "dev": "ts-node-dev src/index.ts",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix",
     "style:check":"prettier --check 'src/**/*.ts' 'test/**/*.ts'",
