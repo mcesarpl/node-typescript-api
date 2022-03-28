@@ -48,12 +48,16 @@ export class StormGlassResponseError extends InternalError {
   }
 }
 
-const stormGlassResourceConfig: IConfig = config.get('App.resources.StormGlass');
+const stormGlassResourceConfig: IConfig = config.get(
+  'App.resources.StormGlass'
+);
 
 export class StormGlass {
   constructor(private readonly request: AxiosStatic) {}
 
-  readonly apiBaseUrl = `${stormGlassResourceConfig.get('apiUrl')}/weather/point`;
+  readonly apiBaseUrl = `${stormGlassResourceConfig.get(
+    'apiUrl'
+  )}/weather/point`;
 
   readonly apiParams =
     'swellDirection,swellHeight,waveDirection,waveHeight,windDirection,windSpeed';
@@ -97,8 +101,8 @@ export class StormGlass {
         `${this.apiBaseUrl}?params=${this.apiParams}&source=${this.apiSource}&end=${this.utcTimestamp}&lat=${lat}&lng=${lng}`,
         {
           headers: {
-            Authorization: stormGlassResourceConfig.get('apitToken')
-          }
+            Authorization: stormGlassResourceConfig.get('apitToken'),
+          },
         }
       );
 
