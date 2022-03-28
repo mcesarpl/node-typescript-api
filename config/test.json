@@ -1,0 +1,9 @@
+{
+  "App": {
+    "resources": {
+      "StormGlass": {
+        "apitToken":"test-token"
+      }
+    }
+  }
+}
