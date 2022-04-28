@@ -1,6 +1,7 @@
-import { AxiosError, AxiosStatic } from 'axios';
+import { AxiosError } from 'axios';
 import { InternalError } from '@src/util/errors/internal-errors';
 import config, { IConfig } from 'config';
+import * as HTTPUtil from '@src/util/request';
 
 export interface StormGlassPointSource {
   [key: string]: number;
@@ -53,7 +54,7 @@ const stormGlassResourceConfig: IConfig = config.get(
 );
 
 export class StormGlass {
-  constructor(private readonly request: AxiosStatic) {}
+  constructor(private readonly request = new HTTPUtil.Request()) {}
 
   readonly apiBaseUrl = `${stormGlassResourceConfig.get(
     'apiUrl'
@@ -109,8 +110,7 @@ export class StormGlass {
       return this.normalizeResponse(data);
     } catch (error: unknown) {
       if (
-        (error as AxiosError).response &&
-        (error as AxiosError).response?.status
+        HTTPUtil.Request.isRequestError(error as AxiosError)
       ) {
         throw new StormGlassResponseError(
           `Error: ${JSON.stringify(
