@@ -95,8 +95,7 @@ export class StormGlass {
     );
   }
 
-  public async fetchPoints(lat: number, lng: number): Promise<unknown> {
-    console.log(stormGlassResourceConfig);
+  public async fetchPoints(lat: number, lng: number): Promise<ForecastPoint[]> {
     try {
       const { data } = await this.request.get<StormGlassForecastResponse>(
         `${this.apiBaseUrl}?params=${this.apiParams}&source=${this.apiSource}&end=${this.utcTimestamp}&lat=${lat}&lng=${lng}`,
@@ -109,9 +108,7 @@ export class StormGlass {
 
       return this.normalizeResponse(data);
     } catch (error: unknown) {
-      if (
-        HTTPUtil.Request.isRequestError(error as AxiosError)
-      ) {
+      if (HTTPUtil.Request.isRequestError(error as AxiosError)) {
         throw new StormGlassResponseError(
           `Error: ${JSON.stringify(
             (error as AxiosError).response?.data

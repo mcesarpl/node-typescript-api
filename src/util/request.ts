@@ -13,6 +13,6 @@ export class Request {
   }
 
   public static isRequestError(error: AxiosError): boolean {
-    return !!(error?.response?.status);
+    return !!error?.response?.status;
   }
 }
