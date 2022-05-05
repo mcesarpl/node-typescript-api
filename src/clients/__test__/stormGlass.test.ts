@@ -6,8 +6,9 @@ import * as HTTPUtil from '@src/util/request';
 jest.mock('@src/util/request');
 
 describe('StormGlass Client', () => {
-
-  const MockedRequestClass = HTTPUtil.Request as jest.Mocked<typeof HTTPUtil.Request>;
+  const MockedRequestClass = HTTPUtil.Request as jest.Mocked<
+    typeof HTTPUtil.Request
+  >;
 
   const mockedRequest = new HTTPUtil.Request() as jest.Mocked<HTTPUtil.Request>;
 
@@ -15,7 +16,9 @@ describe('StormGlass Client', () => {
     const lat = -33.7992726;
     const lgn = 151.289824;
 
-    mockedRequest.get.mockResolvedValue({ data: stormGlassWeatherForecast } as HTTPUtil.Response);
+    mockedRequest.get.mockResolvedValue({
+      data: stormGlassWeatherForecast,
+    } as HTTPUtil.Response);
 
     const stormGlass = new StormGlass(mockedRequest);
 
@@ -39,7 +42,9 @@ describe('StormGlass Client', () => {
       ],
     };
 
-    mockedRequest.get.mockResolvedValue({ data: incompleteResponse } as HTTPUtil.Response);
+    mockedRequest.get.mockResolvedValue({
+      data: incompleteResponse,
+    } as HTTPUtil.Response);
 
     const stormGlass = new StormGlass(mockedRequest);
 
