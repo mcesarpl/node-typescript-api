@@ -19,7 +19,7 @@ export interface StormGlassPoint {
 }
 
 export interface ForecastPoint {
-  time: string;
+  time?: string;
   waveHeight: number;
   waveDirection: number;
   swellDirection: number;
