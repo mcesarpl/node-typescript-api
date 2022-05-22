@@ -22,7 +22,7 @@ export interface BeachForecast extends Omit<Beach, 'user'>, ForecastPoint {
 
 export interface TimeForecast {
   time?: string;
-  forecast: Omit<BeachForecast, 'time'>[]
+  forecast: Omit<BeachForecast, 'time'>[];
 }
 
 export class ForecastProcessingInternalError extends InternalError {
@@ -37,27 +37,29 @@ export class Forecast {
   private mapForecastByTime(forecast: BeachForecast[]): TimeForecast[] {
     const forecastByTime: TimeForecast[] = [];
 
-      forecast.forEach((forecast) => {
-        const timePoint = forecastByTime.find((obj) => obj.time === forecast.time);
-  
-        if (timePoint) {
-          timePoint.forecast.push(forecast);
-        } else {
-          const time = forecast.time;
-  
-          delete forecast.time;
-  
-          forecastByTime.push({
-            time: time,
-            forecast: [forecast]
-          })
-        }
-      });
+    forecast.forEach((forecast) => {
+      const timePoint = forecastByTime.find(
+        (obj) => obj.time === forecast.time
+      );
+
+      if (timePoint) {
+        timePoint.forecast.push(forecast);
+      } else {
+        const time = forecast.time;
+
+        delete forecast.time;
+
+        forecastByTime.push({
+          time: time,
+          forecast: [forecast],
+        });
+      }
+    });
 
     return forecastByTime;
   }
 
-  private enricheData(beach: Beach, points: ForecastPoint[]): BeachForecast[]{
+  private enricheData(beach: Beach, points: ForecastPoint[]): BeachForecast[] {
     return points.map((point) => ({
       ...point,
       lat: beach.lat,
@@ -76,12 +78,12 @@ export class Forecast {
     try {
       for (const beach of beaches) {
         const points = await this.stormGlass.fetchPoints(beach.lat, beach.lng);
-  
+
         const enrichedBeachData = this.enricheData(beach, points);
-        
+
         pointsWithCorrectSources.push(...enrichedBeachData);
       }
-    } catch(error: unknown) {
+    } catch (error: unknown) {
       throw new ForecastProcessingInternalError((error as Error)?.message);
     }
 

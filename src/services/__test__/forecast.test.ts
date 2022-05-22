@@ -5,8 +5,7 @@ import stormGlassNormalizedResponseFixture from '@test/fixtures/stormGlassWeathe
 jest.mock('@src/clients/stormGlass');
 
 describe('Forecast Service', () => {
-
-  const mockedStormGlassService = new StormGlass as jest.Mocked<StormGlass>;
+  const mockedStormGlassService = new StormGlass() as jest.Mocked<StormGlass>;
 
   it('should return the forecast for a list of beaches', async () => {
     const beaches: Beach[] = [
@@ -19,7 +18,9 @@ describe('Forecast Service', () => {
       },
     ];
 
-    mockedStormGlassService.fetchPoints.mockResolvedValue(stormGlassNormalizedResponseFixture);
+    mockedStormGlassService.fetchPoints.mockResolvedValue(
+      stormGlassNormalizedResponseFixture
+    );
 
     const expectedResponse = [
       {
@@ -107,10 +108,14 @@ describe('Forecast Service', () => {
       },
     ];
 
-    mockedStormGlassService.fetchPoints.mockRejectedValue('Error when fetching data');
+    mockedStormGlassService.fetchPoints.mockRejectedValue(
+      'Error when fetching data'
+    );
 
     const forecast = new Forecast(mockedStormGlassService);
 
-    await expect(forecast.processForecastForBeaches(beaches)).rejects.toThrow(Error);
-  })
+    await expect(forecast.processForecastForBeaches(beaches)).rejects.toThrow(
+      Error
+    );
+  });
 });
